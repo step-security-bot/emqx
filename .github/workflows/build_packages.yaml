@@ -19,7 +19,7 @@ on:
       elixir_vsn:
         required: true
         type: string
-      runner:
+      runner_labels:
         required: true
         type: string
       builder_vsn:
@@ -62,10 +62,10 @@ on:
         required: false
         type: string
         default: '1.14.5'
-      runner:
+      runner_labels:
         required: false
         type: string
-        default: 'ubuntu-22.04'
+        default: '["self-hosted","ephemeral"]'
       builder_vsn:
         required: false
         type: string
