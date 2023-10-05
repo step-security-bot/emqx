@@ -11,9 +11,7 @@ on:
       - 'e*'
     branches:
       - 'master'
-      - 'release-51'
-      - 'release-52'
-      - 'release-53'
+      - 'release-5?'
       - 'ci/**'
 
 env:
@@ -21,7 +19,7 @@ env:
 
 jobs:
   prepare:
-    runs-on: ${{ fromJSON(github.repository_owner == 'emqx' && '["aws-amd64"]' || '["ubuntu-22.04"]') }}
+    runs-on: ${{ fromJSON(github.repository_owner == 'emqx' && '["self-hosted", "ephemeral"]' || '["ubuntu-22.04"]') }}
     container: 'ghcr.io/emqx/emqx-builder/5.1-4:1.14.5-25.3.2-2-ubuntu22.04'
     outputs:
       profile: ${{ steps.parse-git-ref.outputs.profile }}
@@ -95,7 +93,6 @@ jobs:
       otp_vsn: ${{ needs.prepare.outputs.otp_vsn }}
       elixir_vsn: ${{ needs.prepare.outputs.elixir_vsn }}
       builder_vsn: ${{ needs.prepare.outputs.builder_vsn }}
-      runner_labels: ${{ needs.prepare.outputs.runner_labels }}
     secrets: inherit
 
   build_and_push_docker_images:

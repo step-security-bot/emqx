@@ -12,7 +12,7 @@ on:
 jobs:
   linux:
     if: github.repository_owner == 'emqx'
-    runs-on: ['self-hosted', 'linux', 'x64', 'ephemeral']
+    runs-on: ['self-hosted', 'linux', "${{ matrix.arch }}", 'ephemeral']
     container:
       image: "ghcr.io/emqx/emqx-builder/${{ matrix.builder }}:${{ matrix.elixir }}-${{ matrix.otp }}-${{ matrix.os }}"
 
