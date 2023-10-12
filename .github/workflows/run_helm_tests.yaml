@@ -17,6 +17,9 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: read
+
 jobs:
   helm_test:
     runs-on: ${{ fromJSON(inputs.runner_labels) }}
@@ -39,10 +42,10 @@ jobs:
         - emqx-enterprise
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       with:
         path: source
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
       with:
         name: "${{ env.EMQX_NAME }}-docker"
         path: /tmp
@@ -117,7 +120,7 @@ jobs:
           echo "waiting ${EMQX_NAME} cluster scale. Current live nodes: $nodes_length."
           sleep 1
         done
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       with:
         repository: emqx/paho.mqtt.testing
         ref: develop-5.0

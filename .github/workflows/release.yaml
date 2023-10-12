@@ -19,12 +19,12 @@ jobs:
     strategy:
       fail-fast: false
     steps:
-      - uses: aws-actions/configure-aws-credentials@v2
+      - uses: aws-actions/configure-aws-credentials@5fd3084fc36e372ff1fff382a39b10d03659f355 # v2.2.0
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           ref: ${{ github.event.inputs.tag }}
       - name: Detect profile
@@ -53,7 +53,7 @@ jobs:
           BUCKET=${{ secrets.AWS_S3_BUCKET }}
           OUTPUT_DIR=${{ steps.profile.outputs.s3dir }}
           aws s3 cp --recursive s3://$BUCKET/$OUTPUT_DIR/${{ github.ref_name }} packages
-      - uses: alexellis/upload-assets@0.4.0
+      - uses: alexellis/upload-assets@259de5111cb56966d046ced998941e93f91d2c93 # 0.4.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -117,7 +117,7 @@ jobs:
       checks: write
       actions: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: trigger re-run of app versions check on open PRs
         shell: bash
         env:
