@@ -41,7 +41,7 @@ jobs:
     container: "ghcr.io/emqx/emqx-builder/${{ matrix.builder }}:${{ matrix.elixir }}-${{ matrix.otp }}-ubuntu22.04"
 
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: ${{ matrix.profile }}
       - name: extract artifact
@@ -62,7 +62,7 @@ jobs:
           CT_COVER_EXPORT_PREFIX: ${{ matrix.profile }}-${{ matrix.otp }}
         run: make proper
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: coverdata
           path: _build/test/cover
@@ -80,7 +80,7 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: ${{ matrix.profile }}
       - name: extract artifact
@@ -104,14 +104,14 @@ jobs:
           SUITEGROUP: ${{ matrix.suitegroup }}
           CT_COVER_EXPORT_PREFIX: ${{ matrix.profile }}-${{ matrix.otp }}-sg${{ matrix.suitegroup }}
         run: ./scripts/ct/run.sh --ci --app ${{ matrix.app }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: coverdata
           path: _build/test/cover
       - name: compress logs
         if: failure()
         run: tar -czf logs.tar.gz _build/test/logs
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         if: failure()
         with:
           name: logs-${{ matrix.profile }}-${{ matrix.prefix }}-${{ matrix.otp }}-sg${{ matrix.suitegroup }}
@@ -131,7 +131,7 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: ${{ matrix.profile }}
       - name: extract artifact
@@ -147,7 +147,7 @@ jobs:
           CT_COVER_EXPORT_PREFIX: ${{ matrix.profile }}-${{ matrix.otp }}-sg${{ matrix.suitegroup }}
         run: |
           make "${{ matrix.app }}-ct"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: coverdata
           path: _build/test/cover
@@ -155,7 +155,7 @@ jobs:
       - name: compress logs
         if: failure()
         run: tar -czf logs.tar.gz _build/test/logs
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         if: failure()
         with:
           name: logs-${{ matrix.profile }}-${{ matrix.prefix }}-${{ matrix.otp }}-sg${{ matrix.suitegroup }}
@@ -185,7 +185,7 @@ jobs:
         profile:
           - emqx-enterprise
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         with:
           name: ${{ matrix.profile }}
       - name: extract artifact
@@ -193,7 +193,7 @@ jobs:
           unzip -o -q ${{ matrix.profile }}.zip
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a # v3.0.2
         name: download coverdata
         with:
           name: coverdata
