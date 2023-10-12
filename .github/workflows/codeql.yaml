@@ -8,6 +8,9 @@ on:
       ref:
         required: false
 
+permissions:
+  contents: read
+
 jobs:
   analyze:
     name: Analyze
